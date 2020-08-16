@@ -1,0 +1,68 @@
+{
+  "name": "@shipengine/next-mdx",
+  "version": "1.0.0",
+  "description": "Adds support for MDX with advanced syntax features in Next.js applications",
+  "keywords": [
+    "nextjs",
+    "mdx",
+    "markdown",
+    "react",
+    "jsx",
+    "documentation"
+  ],
+  "author": {
+    "name": "ShipEngine",
+    "email": "support@shipengine.com",
+    "url": "https://www.shipengine.com"
+  },
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShipEngine/next-mdx.git"
+  },
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "clean": "shx rm -rf .nyc_output coverage lib",
+    "lint": "eslint src test --ext=.ts,.js",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "test": "mocha && npm run lint",
+    "coverage": "nyc node_modules/mocha/bin/mocha",
+    "upgrade": "npm-check -u && npm audit fix",
+    "bump": "bump --tag --push --all",
+    "release": "npm run upgrade && npm run clean && npm run build && npm test && npm run bump"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "devDependencies": {
+    "@jsdevtools/version-bump-prompt": "^6.0.2",
+    "@mdx-js/mdx": "^1.6.16",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^8.0.0",
+    "@types/node": "^14.0.23",
+    "@types/vfile": "^4.0.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
+    "chai": "^4.2.0",
+    "eslint": "^7.5.0",
+    "mocha": "^8.0.1",
+    "npm-check": "^5.9.0",
+    "nyc": "^15.0.0",
+    "shx": "^0.3.2",
+    "source-map-support": "^0.5.12",
+    "typescript": "^3.5.1",
+    "untag": "^1.0.1"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^1.6.16",
+    "@next/mdx": "^9.5.2",
+    "remark-frontmatter": "2.0.0",
+    "utimes": "^3.0.5",
+    "yaml": "^1.10.0"
+  }
+}

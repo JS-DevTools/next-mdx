@@ -1,0 +1,36 @@
+# ESLint config
+# http://eslint.org/docs/user-guide/configuring
+# https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/README.md
+# https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/TYPED_LINTING.md
+
+root: true
+
+env:
+  node: true
+
+overrides:
+  # Linter settings for JavaScript
+  - files: ["**/*.js"]
+    parserOptions:
+      ecmaVersion: 2020
+    env:
+      es6: true
+    extends:
+      - eslint:recommended
+
+  # Linter settings for TypeScript
+  - files: ["**/*.ts"]
+    parser: "@typescript-eslint/parser"
+    parserOptions:
+      ecmaVersion: 2020
+      sourceType: module
+      project: tsconfig.json
+    plugins:
+      - "@typescript-eslint"
+    extends:
+      - eslint:recommended
+      - plugin:@typescript-eslint/recommended
+      - plugin:@typescript-eslint/recommended-requiring-type-checking
+    rules:
+      "@typescript-eslint/ban-types": off
+      "@typescript-eslint/no-non-null-assertion": off
