@@ -1,0 +1,5 @@
+# ESLint config
+# http://eslint.org/docs/user-guide/configuring
+
+env:
+  mocha: true
