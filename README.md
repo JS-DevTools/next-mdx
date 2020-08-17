@@ -25,7 +25,7 @@ Features
 
 - Passes a `markdown` boolean to React components to indicate whether they originally came from Markdown syntax. This allows you to distinguish between `**bold**` and `<b>bold</b>`  which can be used to apply different styling, or even render completely different JSX.
 
-- Adds support for links to MDX files (e.g. `/pages/docs/some-page.mdx` instead of `/pages/docs/some-page`)
+- Rewrites links to MDX files (e.g. `/pages/docs/some-page.mdx` becomes `/pages/docs/some-page`)
 
 - Detects broken links to MDX files
 
