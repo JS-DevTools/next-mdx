@@ -5,6 +5,7 @@ import { Parent } from "unist";
 import { VFile } from "vfile";
 import * as yaml from "yaml";
 import { Options } from "./types";
+import { toPosixPath } from "./utils";
 
 interface Frontmatter {
   [key: string]: unknown;
@@ -84,12 +85,8 @@ function getLayoutPath(frontmatter: Frontmatter, file: VFile, options: Options):
   let layoutPath = path.relative(file.dirname!, path.resolve(options.layoutsDir, layout));
   delete frontmatter.layout;
 
-  if (process.platform === "win32") {
-    // Replace Windows path separators, since "import" statements should use POSIX separators
-    layoutPath = layoutPath.replace(/\\/g, "/");
-  }
-
-  return layoutPath;
+  // "import" statements should use POSIX separators
+  return toPosixPath(layoutPath);
 }
 
 /**
