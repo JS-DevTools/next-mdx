@@ -82,7 +82,7 @@ function findInsertionPoint(tree: Parent): number {
  */
 function getLayoutPath(frontmatter: Frontmatter, file: VFile, options: Options): string {
   const layout = String(frontmatter.layout || options.defaultLayout);
-  let layoutPath = path.relative(file.dirname!, path.resolve(options.layoutsDir, layout));
+  const layoutPath = path.relative(file.dirname!, path.join(options.layoutsDir, layout));
   delete frontmatter.layout;
 
   // "import" statements should use POSIX separators
