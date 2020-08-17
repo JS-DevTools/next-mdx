@@ -145,10 +145,16 @@ function prettyName(url: URL): string {
  * Rewrites a link to an MDX file
  */
 function rewriteLink(relativeURL: string, absoluteURL: URL): string {
-  const fileName = path.basename(absoluteURL.pathname);
+  const { pathname } = absoluteURL;
+  const fileName = path.basename(pathname);
 
   if (fileName === mdxIndex) {
-    relativeURL = relativeURL.replace(fileName, "");
+    if (relativeURL.startsWith(fileName)) {
+      relativeURL = relativeURL.replace(fileName, "./");
+    }
+    else {
+      relativeURL = relativeURL.replace(fileName, "");
+    }
   }
   else {
     relativeURL = relativeURL.replace(fileName, fileName.slice(0, -4));

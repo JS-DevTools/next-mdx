@@ -59,7 +59,7 @@ describe("Linking to MDX files", () => {
           <h1 {...{
             "markdown": true
           }}><a parentName="h1" {...{
-              "href": "#heading",
+              "href": "./#heading",
               "markdown": true
             }}>{\`Link to Self\`}</a></h1>
           <p {...{
@@ -179,7 +179,7 @@ describe("Linking to MDX files", () => {
 
           <h1 {...{
             "markdown": true
-          }}><a href="#heading">{\`Link to Self\`}</a></h1>
+          }}><a href="./#heading">{\`Link to Self\`}</a></h1>
           <p {...{
             "markdown": true
           }}>{\`Here are links to a \`}<a href="file2">{\`sibling page\`}</a>{\` and a \`}<a href="subdir/file3">{\`child page\`}</a>{\`.\`}</p>
