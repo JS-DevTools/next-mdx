@@ -1,6 +1,6 @@
 {
   "name": "@shipengine/next-mdx",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Adds support for MDX with advanced syntax features in Next.js applications",
   "keywords": [
     "nextjs",
