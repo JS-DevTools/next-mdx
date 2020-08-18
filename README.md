@@ -29,12 +29,6 @@ Features
 
 - Detects broken links to MDX files
 
-- Converts blockquotes to callouts if they begin with something like `**NOTE:**`, `**TIP:**`, etc.
-
-- Combines multiple consecutive code blocks into a multi-language code sample
-
-- Adds a table of contents to every page
-
 
 
 Usage
