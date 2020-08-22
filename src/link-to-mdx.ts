@@ -5,13 +5,10 @@ import { Parent } from "unist";
 import { fileURLToPath, pathToFileURL } from "url";
 import { VFile } from "vfile";
 import { Options } from "./types";
-import { toPosixPath } from "./utils";
+import { MDXNode, toPosixPath } from "./utils";
 
 const mdxExtension = ".mdx";
 const mdxIndex = "index.mdx";
-
-// This RegExp pattern matches MDX file paths in JSX attributes
-const jsxMdxLinkPattern = /"([^"]+\.mdx[^"]*)"/g;
 
 // To save redundant disk IO, we cache verified file paths for a bit.
 // This map contains verified file paths and their expiration times.
@@ -45,13 +42,14 @@ async function crawl(tree: Parent, file: VFile, options: Options): Promise<void>
         }
         break;
 
-      case "jsx":
-        if (typeof node.value === "string" && node.value.includes(mdxExtension)) {
-          const matches = [...node.value.matchAll(jsxMdxLinkPattern)];
-          for (const [, link] of matches) {
-            const newLink = await validateAndRewriteLink(link, file, options);
+      case "mdxBlockElement":
+      case "mdxSpanElement":
+        const mdxNode = node as MDXNode;
+        for (const attribute of mdxNode.attributes) {
+          if (typeof attribute.value === "string" && attribute.value.includes(mdxExtension)) {
+            const newLink = await validateAndRewriteLink(attribute.value, file, options);
             if (newLink) {
-              node.value = (node.value as string).replace(link, newLink);
+              attribute.value = newLink;
             }
           }
         }

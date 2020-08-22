@@ -32,5 +32,6 @@ overrides:
       - plugin:@typescript-eslint/recommended
       - plugin:@typescript-eslint/recommended-requiring-type-checking
     rules:
+      no-case-declarations: off
       "@typescript-eslint/ban-types": off
       "@typescript-eslint/no-non-null-assertion": off

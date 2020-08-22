@@ -176,9 +176,11 @@ describe("Linking to MDX files", () => {
       {
         path: "./pages/docs/reference/index.mdx",
         contents: untag`
-          # <a href="index.mdx#heading">Link to Self</a>
+          # <Link page="index.mdx#heading" target="_blank">Link to Self</Link>
 
-          Here are links to a <a href="sibling.mdx">sibling page</a> and a <a href="subdir/descendant.mdx">child page</a>.
+          <CustomElement foo={"invalid.mdx"} bar={123} baz={new Date()} biz="../../index.mdx">
+            Here are links to a <a href="sibling.mdx">sibling page</a> and a <a href="subdir/descendant.mdx">child page</a>.
+          </CustomElement>
 
           > You can also link to <a href="../index.mdx">files</a> <a href="../../root.mdx">in parent</a>
           > <a href="../guides/index.mdx">directories</a>
@@ -211,7 +213,8 @@ describe("Linking to MDX files", () => {
         console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
         return <div {...props}/>
       };
-
+      const Link = makeShortcode("Link");
+      const CustomElement = makeShortcode("CustomElement");
       const layoutProps = {
         createdAt,
         modifiedAt
@@ -223,37 +226,67 @@ describe("Linking to MDX files", () => {
         ...props
       }) {
         return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
-
-
           <h1 {...{
             "markdown": true
-          }}><a href="/docs/reference#heading">{\`Link to Self\`}</a></h1>
-          <p {...{
-            "markdown": true
-          }}>{\`Here are links to a \`}<a href="/docs/reference/sibling">{\`sibling page\`}</a>{\` and a \`}<a href="/docs/reference/subdir/descendant">{\`child page\`}</a>{\`.\`}</p>
+          }}><Link page="/docs/reference#heading" target="_blank" mdxType="Link">{\`Link to Self\`}</Link></h1>
+          <CustomElement foo={"invalid.mdx"} bar={123} baz={new Date()} biz="/" mdxType="CustomElement">
+            <p {...{
+              "markdown": true
+            }}>{\`Here are links to a \`}
+              <a href="/docs/reference/sibling">{\`sibling page\`}</a>
+              {\` and a \`}
+              <a href="/docs/reference/subdir/descendant">{\`child page\`}</a>
+              {\`.\`}</p>
+          </CustomElement>
           <blockquote {...{
             "markdown": true
           }}>
-            <p parentName="blockquote" {...{
-              "markdown": true
-            }}>{\`You can also link to \`}<a href="/docs">{\`files\`}</a>{\` \`}<a href="/root">{\`in parent\`}</a></p>
-            <a href="/docs/guides">directories</a>
+
+            <p {...{
+              "markdown": true,
+              "parentName": "blockquote"
+            }}>{\`You can also link to \`}
+              <a href="/docs">{\`files\`}</a>
+              {\` \`}
+              <a href="/root">{\`in parent\`}</a>
+              {\`
+      \`}
+              <a href="/docs/guides">{\`directories\`}</a></p>
+
           </blockquote>
           <ul {...{
             "markdown": true
           }}>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}>{\`Links to \`}<a href="http://example.com/page.mdx">{\`external sites\`}</a>{\` are ignored\`}</li>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}>{\`So are \`}<a href="page">{\`links\`}</a>{\` \`}<a href="another/page">{\`without\`}</a>{\` \`}<a href="../../another/page/">{\`extensions\`}</a></li>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}><a href="/#hash">Relative links</a> with <a href="/docs/guides?foo=bar">query params</a> are checked
-            </li>
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}>{\`Links to \`}
+              <a href="http://example.com/page.mdx">{\`external sites\`}</a>
+              {\` are ignored\`}</li>
+
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}>{\`So are \`}
+              <a href="page">{\`links\`}</a>
+              {\` \`}
+              <a href="another/page">{\`without\`}</a>
+              {\` \`}
+              <a href="../../another/page/">{\`extensions\`}</a></li>
+
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}><a href="/#hash">{\`Relative links\`}</a>
+              {\` with \`}
+              <a href="/docs/guides?foo=bar">{\`query params\`}</a>
+              {\` are checked\`}</li>
+
           </ul>
-          </MDXLayout>;
+        </MDXLayout>;
       }
 
       ;
