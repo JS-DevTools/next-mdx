@@ -24,15 +24,18 @@ describe("Annotating Markdown Nodes", () => {
       /* @jsx mdx */
       import Layout from "../../components/layouts/docs";
 
+      export const createdAt = new Date(946684800000);
+      export const modifiedAt = new Date(949449600000);
+      const makeShortcode = name => function MDXDefaultShortcode(props) {
+        console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+        return <div {...props}/>
+      };
 
       const layoutProps = {
-      ${"  "}
+        createdAt,
+        modifiedAt
       };
-      const MDXLayout = (props) => <Layout
-        createdAt={new Date(946684800000)}
-        modifiedAt={new Date(949449600000)}
-        {...props}
-      />
+      const MDXLayout = (props) => <Layout {...props}/>
 
       export default function MDXContent({
         components,
@@ -96,15 +99,18 @@ describe("Annotating Markdown Nodes", () => {
       import Link from "next/link";
       import Layout from "../../components/layouts/docs";
 
+      export const createdAt = new Date(946684800000);
+      export const modifiedAt = new Date(949449600000);
+      const makeShortcode = name => function MDXDefaultShortcode(props) {
+        console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+        return <div {...props}/>
+      };
 
       const layoutProps = {
-      ${"  "}
+        createdAt,
+        modifiedAt
       };
-      const MDXLayout = (props) => <Layout
-        createdAt={new Date(946684800000)}
-        modifiedAt={new Date(949449600000)}
-        {...props}
-      />
+      const MDXLayout = (props) => <Layout {...props}/>
 
       export default function MDXContent({
         components,

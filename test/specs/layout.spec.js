@@ -20,16 +20,20 @@ describe("Layout", () => {
       /* @jsx mdx */
       import Layout from "../../components/layouts/docs";
 
+      export const title = "The Page Title";
+      export const createdAt = new Date(946684800000);
+      export const modifiedAt = new Date(949449600000);
+      const makeShortcode = name => function MDXDefaultShortcode(props) {
+        console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+        return <div {...props}/>
+      };
 
       const layoutProps = {
-      ${"  "}
+        title,
+        createdAt,
+        modifiedAt
       };
-      const MDXLayout = (props) => <Layout
-        title="The Page Title"
-        createdAt={new Date(946684800000)}
-        modifiedAt={new Date(949449600000)}
-        {...props}
-      />
+      const MDXLayout = (props) => <Layout {...props}/>
 
       export default function MDXContent({
         components,
@@ -37,8 +41,7 @@ describe("Layout", () => {
       }) {
         return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
 
-
-          </MDXLayout>;
+        </MDXLayout>;
       }
 
       ;
@@ -60,16 +63,20 @@ describe("Layout", () => {
       /* @jsx mdx */
       import Layout from "../../components/layouts/something-else";
 
+      export const title = "The Page Title";
+      export const createdAt = new Date(946684800000);
+      export const modifiedAt = new Date(949449600000);
+      const makeShortcode = name => function MDXDefaultShortcode(props) {
+        console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+        return <div {...props}/>
+      };
 
       const layoutProps = {
-      ${"  "}
+        title,
+        createdAt,
+        modifiedAt
       };
-      const MDXLayout = (props) => <Layout
-        title="The Page Title"
-        createdAt={new Date(946684800000)}
-        modifiedAt={new Date(949449600000)}
-        {...props}
-      />
+      const MDXLayout = (props) => <Layout {...props}/>
 
       export default function MDXContent({
         components,
@@ -77,8 +84,7 @@ describe("Layout", () => {
       }) {
         return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
 
-
-          </MDXLayout>;
+        </MDXLayout>;
       }
 
       ;
@@ -102,16 +108,20 @@ describe("Layout", () => {
       /* @jsx mdx */
       import Layout from "../../layouts/FancyPage";
 
+      export const title = "The Page Title";
+      export const createdAt = new Date(946684800000);
+      export const modifiedAt = new Date(949449600000);
+      const makeShortcode = name => function MDXDefaultShortcode(props) {
+        console.warn("Component " + name + " was not imported, exported, or provided by MDXProvider as global scope")
+        return <div {...props}/>
+      };
 
       const layoutProps = {
-      ${"  "}
+        title,
+        createdAt,
+        modifiedAt
       };
-      const MDXLayout = (props) => <Layout
-        title="The Page Title"
-        createdAt={new Date(946684800000)}
-        modifiedAt={new Date(949449600000)}
-        {...props}
-      />
+      const MDXLayout = (props) => <Layout {...props}/>
 
       export default function MDXContent({
         components,
@@ -119,8 +129,7 @@ describe("Layout", () => {
       }) {
         return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
 
-
-          </MDXLayout>;
+        </MDXLayout>;
       }
 
       ;
