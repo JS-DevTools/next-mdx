@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@jsdevtools/version-bump-prompt": "^6.0.2",
-    "@mdx-js/mdx": "^1.6.16",
+    "@mdx-js/mdx": "^2.0.0-next.7",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.6.0",
@@ -59,7 +59,7 @@
     "untag": "^1.0.1"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.16",
+    "@mdx-js/loader": "^2.0.0-next.7",
     "@next/mdx": "^9.5.2",
     "remark-frontmatter": "2.0.0",
     "utimes": "^3.0.5",

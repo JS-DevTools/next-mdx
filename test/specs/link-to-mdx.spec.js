@@ -58,72 +58,112 @@ describe("Linking to MDX files", () => {
         ...props
       }) {
         return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
-
-
           <h1 {...{
             "markdown": true
-          }}><a parentName="h1" {...{
+          }}><a {...{
               "href": "/docs/reference#heading",
-              "markdown": true
+              "markdown": true,
+              "parentName": "h1"
             }}>{\`Link to Self\`}</a></h1>
           <p {...{
             "markdown": true
-          }}>{\`Here are links to a \`}<a parentName="p" {...{
+          }}>{\`Here are links to a \`}
+            <a {...{
               "href": "/docs/reference/sibling",
-              "markdown": true
-            }}>{\`sibling page\`}</a>{\` and a \`}<a parentName="p" {...{
+              "markdown": true,
+              "parentName": "p"
+            }}>{\`sibling page\`}</a>
+            {\` and a \`}
+            <a {...{
               "href": "/docs/reference/subdir/descendant",
-              "markdown": true
-            }}>{\`child page\`}</a>{\`.\`}</p>
+              "markdown": true,
+              "parentName": "p"
+            }}>{\`child page\`}</a>
+            {\`.\`}</p>
           <blockquote {...{
             "markdown": true
           }}>
-            <p parentName="blockquote" {...{
-              "markdown": true
-            }}>{\`You can also link to \`}<a parentName="p" {...{
+
+            <p {...{
+              "markdown": true,
+              "parentName": "blockquote"
+            }}>{\`You can also link to \`}
+              <a {...{
                 "href": "/docs",
-                "markdown": true
-              }}>{\`files\`}</a>{\` \`}<a parentName="p" {...{
+                "markdown": true,
+                "parentName": "p"
+              }}>{\`files\`}</a>
+              {\` \`}
+              <a {...{
                 "href": "/root",
-                "markdown": true
-              }}>{\`in parent\`}</a>{\` \`}<a parentName="p" {...{
+                "markdown": true,
+                "parentName": "p"
+              }}>{\`in parent\`}</a>
+              {\` \`}
+              <a {...{
                 "href": "/docs/guides",
-                "markdown": true
+                "markdown": true,
+                "parentName": "p"
               }}>{\`directories\`}</a></p>
+
           </blockquote>
           <ul {...{
             "markdown": true
           }}>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}>{\`Links to \`}<a parentName="li" {...{
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}>{\`Links to \`}
+              <a {...{
                 "href": "http://example.com/page.mdx",
-                "markdown": true
-              }}>{\`external sites\`}</a>{\` are ignored\`}</li>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}>{\`So are \`}<a parentName="li" {...{
+                "markdown": true,
+                "parentName": "li"
+              }}>{\`external sites\`}</a>
+              {\` are ignored\`}</li>
+
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}>{\`So are \`}
+              <a {...{
                 "href": "page",
-                "markdown": true
-              }}>{\`links\`}</a>{\` \`}<a parentName="li" {...{
+                "markdown": true,
+                "parentName": "li"
+              }}>{\`links\`}</a>
+              {\` \`}
+              <a {...{
                 "href": "another/page",
-                "markdown": true
-              }}>{\`without\`}</a>{\` \`}<a parentName="li" {...{
+                "markdown": true,
+                "parentName": "li"
+              }}>{\`without\`}</a>
+              {\` \`}
+              <a {...{
                 "href": "../../another/page/",
-                "markdown": true
+                "markdown": true,
+                "parentName": "li"
               }}>{\`extensions\`}</a></li>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}><a parentName="li" {...{
+
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}><a {...{
                 "href": "/#hash",
-                "markdown": true
-              }}>{\`Relative links\`}</a>{\` with \`}<a parentName="li" {...{
+                "markdown": true,
+                "parentName": "li"
+              }}>{\`Relative links\`}</a>
+              {\` with \`}
+              <a {...{
                 "href": "/docs/guides?foo=bar",
-                "markdown": true
-              }}>{\`query params\`}</a>{\` are checked
-      \`}</li>
+                "markdown": true,
+                "parentName": "li"
+              }}>{\`query params\`}</a>
+              {\` are checked\`}</li>
+
           </ul>
-          </MDXLayout>;
+        </MDXLayout>;
       }
 
       ;

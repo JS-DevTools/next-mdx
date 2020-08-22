@@ -42,36 +42,50 @@ describe("Annotating Markdown Nodes", () => {
         ...props
       }) {
         return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
-
-
           <h1 {...{
             "markdown": true
           }}>{\`Lorem Ipsum\`}</h1>
           <p {...{
             "markdown": true
-          }}>{\`Nullam \`}<strong parentName="p" {...{
-              "markdown": true
-            }}>{\`consequat\`}</strong>{\` ullamcorper \`}<a parentName="p" {...{
+          }}>{\`Nullam \`}
+            <strong {...{
+              "markdown": true,
+              "parentName": "p"
+            }}>{\`consequat\`}</strong>
+            {\` ullamcorper \`}
+            <a {...{
               "href": "http://example.com",
-              "markdown": true
-            }}>{\`consequat\`}</a>{\`.\`}</p>
+              "markdown": true,
+              "parentName": "p"
+            }}>{\`consequat\`}</a>
+            {\`.\`}</p>
           <ul {...{
             "markdown": true
           }}>
-            <li parentName="ul" {...{
-              "markdown": true
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
             }}>{\`Sed porta\`}</li>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}>{\`Nulla \`}<em parentName="li" {...{
-                "markdown": true
+
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}>{\`Nulla \`}
+              <em {...{
+                "markdown": true,
+                "parentName": "li"
               }}>{\`non\`}</em></li>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}>{\`Lectus alique
-      \`}</li>
+
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}>{\`Lectus alique\`}</li>
+
           </ul>
-          </MDXLayout>;
+        </MDXLayout>;
       }
 
       ;
@@ -117,30 +131,40 @@ describe("Annotating Markdown Nodes", () => {
         ...props
       }) {
         return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
-
-
-
           <h1 {...{
             "markdown": true
           }}>{\`Lorem Ipsum\`}</h1>
           <p {...{
             "markdown": true
-          }}>{\`Nullam \`}<b>{\`consequat\`}</b>{\` ullamcorper \`}<Link href="../index.md" mdxType="Link"><a>{\`consequat\`}</a></Link>{\`.\`}</p>
+          }}>{\`Nullam \`}
+            <b>{\`consequat\`}</b>
+            {\` ullamcorper \`}
+            <Link href="../index.md" mdxType="Link"><a>{\`consequat\`}</a></Link>
+            {\`.\`}</p>
           <ul {...{
             "markdown": true
           }}>
-            <li parentName="ul" {...{
-              "markdown": true
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
             }}>{\`Sed porta\`}</li>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}>{\`Nulla \`}<i>{\`non\`}</i></li>
-            <li parentName="ul" {...{
-              "markdown": true
-            }}>{\`Lectus alique
-      \`}</li>
+
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}>{\`Nulla \`}
+              <i>{\`non\`}</i></li>
+
+
+            <li {...{
+              "markdown": true,
+              "parentName": "ul"
+            }}>{\`Lectus alique\`}</li>
+
           </ul>
-          </MDXLayout>;
+        </MDXLayout>;
       }
 
       ;
