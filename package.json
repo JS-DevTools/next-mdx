@@ -55,7 +55,7 @@
     "nyc": "^15.0.0",
     "shx": "^0.3.2",
     "source-map-support": "^0.5.12",
-    "typescript": "^3.5.1",
+    "typescript": "^4.0.2",
     "untag": "^1.0.1"
   },
   "dependencies": {
