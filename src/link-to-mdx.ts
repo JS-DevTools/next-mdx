@@ -124,6 +124,9 @@ async function validateLink(absolutePath: string, link: string, file: VFile, opt
     await promise;
   }
   catch (e) {
+    // Immediately remove the file from the cache
+    fileCache.delete(absolutePath);
+
     const error = e as NodeJS.ErrnoException;
     throw new URIError(
       `Broken link to "${link}" in ${file.basename!}.\n${error.message}`);
