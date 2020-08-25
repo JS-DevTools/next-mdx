@@ -3,14 +3,14 @@ export interface Options {
    * The default layout component to use if no `layout` is specified in frontmatter.
    *
    * Defaults to "docs" which, combined with the default `layoutsDir` option, will
-   * use the component at "./components/layouts/docs".
+   * use the component at "./layouts/docs".
    */
   defaultLayout: string;
 
   /**
    * The path of the directory containing layout components.
    *
-   * Defaults to "./components/layouts"
+   * Defaults to "./layouts"
    */
   layoutsDir: string;
 

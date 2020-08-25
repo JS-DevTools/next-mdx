@@ -13,7 +13,7 @@ import "./typings";
 export function nextMDX(options: Partial<Options> = {}): WithMDX {
   const opt: Options = {
     defaultLayout: "docs",
-    layoutsDir: "./components/layouts",
+    layoutsDir: "./layouts",
     pagesDir: "./pages",
     markdownPropName: "markdown",
     markdownPropValue: true,

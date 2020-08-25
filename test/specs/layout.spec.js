@@ -18,7 +18,7 @@ describe("Layout", () => {
 
     expect(results).to.equal(untag`
       /* @jsx mdx */
-      import Layout from "../../components/layouts/docs";
+      import Layout from "../../layouts/docs";
 
       export const title = "The Page Title";
       export const createdAt = new Date(946684800000);
@@ -61,7 +61,7 @@ describe("Layout", () => {
 
     expect(results).to.equal(untag`
       /* @jsx mdx */
-      import Layout from "../../components/layouts/something-else";
+      import Layout from "../../layouts/something-else";
 
       export const title = "The Page Title";
       export const createdAt = new Date(946684800000);

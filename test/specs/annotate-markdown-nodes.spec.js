@@ -22,7 +22,7 @@ describe("Annotating Markdown Nodes", () => {
 
     expect(results).to.equal(untag`
       /* @jsx mdx */
-      import Layout from "../../components/layouts/docs";
+      import Layout from "../../layouts/docs";
 
       export const createdAt = new Date(946684800000);
       export const modifiedAt = new Date(949449600000);
@@ -111,7 +111,7 @@ describe("Annotating Markdown Nodes", () => {
     expect(results).to.equal(untag`
       /* @jsx mdx */
       import Link from "next/link";
-      import Layout from "../../components/layouts/docs";
+      import Layout from "../../layouts/docs";
 
       export const createdAt = new Date(946684800000);
       export const modifiedAt = new Date(949449600000);
