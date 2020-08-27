@@ -69,7 +69,7 @@ async function getAllPages(options: NormalizedOptions): Promise<Page[]> {
     ],
   });
 
-  const pages = await Promise.all(pagePaths.map(getPage.bind(undefined, options)));
+  const pages = await Promise.all(pagePaths.sort().map(getPage.bind(undefined, options)));
   return pages.filter(Boolean) as Page[];
 }
 
