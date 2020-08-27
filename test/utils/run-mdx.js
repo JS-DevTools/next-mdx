@@ -10,6 +10,12 @@ module.exports = runMDX;
  * Runs MDX on the given Markdown text, using the specified Next-MDX options
  */
 async function runMDX (filepath, options) {
+  // Default options
+  options = {
+    siteURL: "http://example.com",
+    ...options,
+  };
+
   // Produce a Next.js configuration
   const withMDX = nextMDX(options);
   const nextConfig = withMDX();

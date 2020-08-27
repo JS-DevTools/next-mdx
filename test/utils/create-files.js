@@ -15,6 +15,7 @@ module.exports = createFiles;
  */
 beforeEach("clean-up test files", async () => {
   await fs.rmdir("./pages", { recursive: true });
+  await fs.rmdir("./public", { recursive: true });
 });
 
 /**

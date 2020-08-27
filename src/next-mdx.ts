@@ -5,7 +5,7 @@ import { annotateMarkdownNodes } from "./annotate-markdown-nodes";
 import { frontmatterToMDX } from "./frontmatter-to-mdx";
 import { linkToMDX } from "./link-to-mdx";
 import { normalizeOptions, Options } from "./options";
-import { sitemap } from "./sitemap";
+import { awaitSitemap, generateSitemap } from "./sitemap";
 import { WithMDX } from "./types";
 import "./typings";
 
@@ -19,10 +19,15 @@ export function nextMDX(options: Options): WithMDX {
   opt.layoutsDir = path.resolve(opt.layoutsDir);
   opt.pagesDir = path.resolve(opt.pagesDir);
 
+  // Start generating the sitemap.xml file, even before any MDX files are processed.
+  // This ensures the sitemap gets generated, even in local dev mode.
+  generateSitemap(opt);
+
   // Call the official Next.js MDX plugin with our custom options
   return officialNextMDX({
     options: {
       remarkPlugins: [
+        awaitSitemap,
         frontmatter,
         [frontmatterToMDX, opt],
         [linkToMDX, opt],

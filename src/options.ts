@@ -80,6 +80,10 @@ export interface NormalizedOptions extends Required<Omit<Options, "fileCacheTime
 export function normalizeOptions(options: Options): NormalizedOptions {
   const fileCacheTimeout = options.fileCacheTimeout || 60000;
 
+  if (!options.siteURL) {
+    throw new Error("@shipengine/next-mdx requires the siteURL option to be set");
+  }
+
   return {
     defaultLayout: options.defaultLayout || "docs",
     layoutsDir: options.layoutsDir || "./layouts",
