@@ -2,7 +2,7 @@
 
 const { promises: fs } = require("fs");
 const path = require("path");
-const utimes = require("utimes");
+const { utimes } = require("utimes");
 
 // The created/modified timestamps assigned to each file
 const btime = new Date("2000-01-01T00:00:00.000Z").getTime();
