@@ -322,8 +322,7 @@ describe("Linking to MDX files", () => {
     }
     catch (error) {
       expect(error).to.be.an.instanceOf(URIError);
-      expect(error.message).to.match(
-        /^Broken link to "\.\.\/\.\.\/file5\.mdx" in index\.mdx\.\nENOENT: no such file or directory.*file5.mdx'$/);
+      expect(error.message).to.equal("Broken link to \"../../file5.mdx\" in index.mdx.");
     }
   });
 

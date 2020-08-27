@@ -4,21 +4,18 @@ import { Processor, Transformer } from "unified";
 import { Parent } from "unist";
 import { fileURLToPath, pathToFileURL } from "url";
 import { VFile } from "vfile";
-import { Options } from "./types";
+import { FileInfo } from "./file-cache";
+import { NormalizedOptions } from "./options";
 import { MDXNode, toPosixPath } from "./utils";
 
 const mdxExtension = ".mdx";
 const mdxIndex = "index.mdx";
 
-// To save redundant disk IO, we cache verified file paths for a bit.
-// This map contains verified file paths and their expiration times.
-const fileCache = new Map<string, Promise<number>>();
-
 /**
  * Rewrites links to MDX files (e.g. `../other-page.mdx` becomes `../other-page`).
  * Also verifies that the target file exists.
  */
-export function linkToMDX(this: Processor, options: Options): Transformer {
+export function linkToMDX(this: Processor, options: NormalizedOptions): Transformer {
   return async (root: Parent, file: VFile) => {
     await crawl(root, file, options);
     return root;
@@ -28,7 +25,7 @@ export function linkToMDX(this: Processor, options: Options): Transformer {
 /**
  * Recursively rewrites links to MDX files
  */
-async function crawl(tree: Parent, file: VFile, options: Options): Promise<void> {
+async function crawl(tree: Parent, file: VFile, options: NormalizedOptions): Promise<void> {
   const promises = [];
 
   for (const node of tree.children) {
@@ -77,7 +74,7 @@ async function crawl(tree: Parent, file: VFile, options: Options): Promise<void>
  * If `link` points to a local MDX file, then a new, rewritten link is returned.
  * Otherwise, `undefined` is returned.
  */
-async function validateAndRewriteLink(link: string, file: VFile, options: Options): Promise<string | undefined> {
+async function validateAndRewriteLink(link: string, file: VFile, options: NormalizedOptions): Promise<string | undefined> {
   // Resolve the link, relative to the current file
   const fileURL = pathToFileURL(file.path!);
   const linkURL = new URL(link, fileURL);
@@ -102,34 +99,29 @@ async function validateAndRewriteLink(link: string, file: VFile, options: Option
  *
  * @throws A URIError if the target file does not exist
  */
-async function validateLink(absolutePath: string, link: string, file: VFile, options: Options): Promise<void> {
-  const cached = fileCache.get(absolutePath);
+async function validateLink(absolutePath: string, link: string, file: VFile, options: NormalizedOptions): Promise<void> {
+  const { fileCache } = options;
 
-  try {
-    if (cached) {
-      // We've already started checking this file, so wait for the result
-      const expires = await cached;
-      if (expires >= Date.now()) {
-        // This file has been verified, and the verification is not expired
-        return;
-      }
-    }
+  // See if we've already started checking this file
+  const cached = await fileCache.get(absolutePath);
 
-    // This file has not been verified, or the verification has expired.
-    // So verify it exists, and cache the result
-    const promise = verifyFileExists(absolutePath, options);
-    fileCache.set(absolutePath, promise);
-
-    // wait for the file verification to finish
-    await promise;
+  if (cached.exists && cached.expires >= Date.now()) {
+    // This file has been verified, and the verification is not expired
+    return;
   }
-  catch (e) {
-    // Immediately remove the file from the cache
-    fileCache.delete(absolutePath);
 
-    const error = e as NodeJS.ErrnoException;
-    throw new URIError(
-      `Broken link to "${link}" in ${file.basename!}.\n${error.message}`);
+  // This file has not been verified, or the verification has expired.
+  // So verify it exists, and cache the result
+  fileCache.addPending(absolutePath, verifyFileExists(absolutePath));
+
+  // wait for the file verification to finish
+  const { exists } = await fileCache.get(absolutePath);
+
+  if (!exists) {
+    // Immediately remove the file from the cache
+    fileCache.remove(absolutePath);
+
+    throw new URIError(`Broken link to "${link}" in ${file.basename!}.`);
   }
 }
 
@@ -137,15 +129,24 @@ async function validateLink(absolutePath: string, link: string, file: VFile, opt
  * Verifies that the specified file exists
  *
  * @param absolutePath - The absolute file path to check
- * @param options - An options object
  * @returns The timestamp when this verification expires
  */
-async function verifyFileExists(absolutePath: string, options: Options): Promise<number> {
-  // Verify that the file exists (this will throw otherwise)
-  await fs.access(absolutePath);
+async function verifyFileExists(absolutePath: string): Promise<FileInfo> {
+  try {
+    // Verify that the file exists (this will throw otherwise)
+    await fs.access(absolutePath);
 
-  // Return the timestamp when this verification expires
-  return Date.now() + options.fileCacheTimeout;
+    return {
+      absolutePath,
+      exists: true,
+    };
+  }
+  catch (_) {
+    return {
+      absolutePath,
+      exists: false,
+    };
+  }
 }
 
 /**
@@ -158,7 +159,7 @@ async function verifyFileExists(absolutePath: string, options: Options): Promise
  * @param options - An options object
  * @returns The rewritten link, relative to the "pages" directory
  */
-function rewriteLink(absolutePath: string, linkURL: URL, options: Options): string {
+function rewriteLink(absolutePath: string, linkURL: URL, options: NormalizedOptions): string {
   // Get the relative path from the "pages" directory
   let relativePath = path.sep + path.relative(options.pagesDir, absolutePath);
 
