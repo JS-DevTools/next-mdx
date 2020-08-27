@@ -4,7 +4,7 @@ import { Processor, Transformer } from "unified";
 import { Parent } from "unist";
 import { VFile } from "vfile";
 import * as yaml from "yaml";
-import { Options } from "./types";
+import { NormalizedOptions } from "./options";
 import { toPosixPath } from "./utils";
 
 interface Frontmatter {
@@ -14,7 +14,7 @@ interface Frontmatter {
 /**
  * Parses the YAML frontmatter and converts it to an MDX default export
  */
-export function frontmatterToMDX(this: Processor, options: Options): Transformer {
+export function frontmatterToMDX(this: Processor, options: NormalizedOptions): Transformer {
   return async (root: Parent, file: VFile): Promise<Parent> => {
     const stat = await fs.stat(file.path!);
     const frontmatter = extractFrontMatter(root);
@@ -87,7 +87,7 @@ function findInsertionPoint(tree: Parent): number {
 /**
  * Returns the path of layout component to use
  */
-function getLayoutPath(frontmatter: Frontmatter, file: VFile, options: Options): string {
+function getLayoutPath(frontmatter: Frontmatter, file: VFile, options: NormalizedOptions): string {
   const layout = String(frontmatter.layout || options.defaultLayout);
   const layoutPath = path.relative(file.dirname!, path.join(options.layoutsDir, layout));
   delete frontmatter.layout;

@@ -1,11 +1,11 @@
 import { Processor, Transformer } from "unified";
 import { Node, Parent } from "unist";
-import { Options } from "./types";
+import { NormalizedOptions } from "./options";
 
 /**
  * A Rehype plugin that adds a property to all Markdown elements
  */
-export function annotateMarkdownNodes(this: Processor, options: Options): Transformer {
+export function annotateMarkdownNodes(this: Processor, options: NormalizedOptions): Transformer {
   return (root: Parent) => {
     crawl(root, options);
     return root;
@@ -15,7 +15,7 @@ export function annotateMarkdownNodes(this: Processor, options: Options): Transf
 /**
  * Recursively annotates child nodes
  */
-function crawl(tree: Parent, options: Options): void {
+function crawl(tree: Parent, options: NormalizedOptions): void {
   for (const node of tree.children) {
     if (node.type === "element") {
       const htmlNode = node as HtmlNode;

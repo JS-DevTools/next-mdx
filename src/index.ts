@@ -1,5 +1,6 @@
 import { nextMDX } from "./next-mdx";
 
+export { Options } from "./options";
 export * from "./types";
 export { nextMDX };
 

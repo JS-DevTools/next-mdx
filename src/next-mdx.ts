@@ -4,22 +4,16 @@ import * as frontmatter from "remark-frontmatter";
 import { annotateMarkdownNodes } from "./annotate-markdown-nodes";
 import { frontmatterToMDX } from "./frontmatter-to-mdx";
 import { linkToMDX } from "./link-to-mdx";
-import { Options, WithMDX } from "./types";
+import { normalizeOptions, Options } from "./options";
+import { sitemap } from "./sitemap";
+import { WithMDX } from "./types";
 import "./typings";
 
 /**
  * Adds support for MDX with advanced syntax features in Next.js applications
  */
-export function nextMDX(options: Partial<Options> = {}): WithMDX {
-  const opt: Options = {
-    defaultLayout: "docs",
-    layoutsDir: "./layouts",
-    pagesDir: "./pages",
-    markdownPropName: "markdown",
-    markdownPropValue: true,
-    fileCacheTimeout: 60000,
-    ...options,
-  };
+export function nextMDX(options: Options): WithMDX {
+  const opt = normalizeOptions(options);
 
   // Resolve directory paths to absolute paths
   opt.layoutsDir = path.resolve(opt.layoutsDir);
