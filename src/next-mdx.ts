@@ -12,7 +12,7 @@ import "./typings";
 /**
  * Adds support for MDX with advanced syntax features in Next.js applications
  */
-export function nextMDX(options: Options): WithMDX {
+export function nextMDX(options: Partial<Options> = {}): WithMDX {
   const opt = normalizeOptions(options);
 
   // Resolve directory paths to absolute paths

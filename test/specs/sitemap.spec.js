@@ -3,7 +3,7 @@
 const runMDX = require("../utils/run-mdx");
 const createFiles = require("../utils/create-files");
 const { promises: fs } = require("fs");
-const { expect } = require("chai");
+const { assert, expect } = require("chai");
 const untag = require("untag");
 
 describe("Sitemap", () => {
@@ -181,6 +181,27 @@ describe("Sitemap", () => {
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
       </urlset>`
     );
+  });
+
+  it("should not generate a sitemap if the siteURL option is not set", async () => {
+    await createFiles("./pages/index.mdx", untag`
+      ---
+      title: Homepage
+      ---
+
+      # Home Page
+      Lorem ipsum dolor sit amet
+    `);
+
+    await runMDX("./pages/index.mdx", { siteURL: "" });
+
+    try {
+      await fs.readFile("public/sitemap.xml", "utf8");
+      assert.fail("An error should have been thrown");
+    }
+    catch (error) {
+      expect(error.code).to.equal("ENOENT");
+    }
   });
 
 });

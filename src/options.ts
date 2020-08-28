@@ -7,21 +7,21 @@ export interface Options {
    * Defaults to "docs" which, combined with the default `layoutsDir` option, will
    * use the component at "./layouts/docs".
    */
-  defaultLayout?: string;
+  defaultLayout: string;
 
   /**
    * The path of the directory containing layout components.
    *
    * Defaults to "./layouts"
    */
-  layoutsDir?: string;
+  layoutsDir: string;
 
   /**
    * The path of the Next.js "pages" directory.
    *
    * Defaults to "./pages"
    */
-  pagesDir?: string;
+  pagesDir: string;
 
   /**
    * The name of the prop to pass to JSX components to indicate that they originally came from
@@ -30,7 +30,7 @@ export interface Options {
    *
    * Defaults to "markdown"
    */
-  markdownPropName?: string;
+  markdownPropName: string;
 
   /**
    * The value of the prop that's passed to JSX components to indicate that they originally
@@ -38,7 +38,7 @@ export interface Options {
    *
    * Defaults to `true`
    */
-  markdownPropValue?: unknown;
+  markdownPropValue: unknown;
 
   /**
    * Next-MDX caches files to reduce disk IO, which reduces build times.
@@ -46,7 +46,7 @@ export interface Options {
    *
    * Defaults to `60000` (one minute)
    */
-  fileCacheTimeout?: number;
+  fileCacheTimeout: number;
 
   /**
    * The path at which to generate a Sitemap of all pages.  Can be set to `false` to disable
@@ -54,7 +54,7 @@ export interface Options {
    *
    * Defaults to "./public/sitemap.xml"
    */
-  sitemap?: string | false;
+  sitemap: string | false;
 
   /**
    * The root URL of the website. This is used to resolve any relative URLs
@@ -63,7 +63,7 @@ export interface Options {
 }
 
 
-export interface NormalizedOptions extends Required<Omit<Options, "fileCacheTimeout">> {
+export interface NormalizedOptions extends Omit<Options, "fileCacheTimeout"> {
   siteURL: URL;
 
   /**
@@ -77,11 +77,13 @@ export interface NormalizedOptions extends Required<Omit<Options, "fileCacheTime
  * Normalizes user-specified options, and applies defaults for any options that
  * aren't specified.
  */
-export function normalizeOptions(options: Options): NormalizedOptions {
+export function normalizeOptions(options: Partial<Options>): NormalizedOptions {
   const fileCacheTimeout = options.fileCacheTimeout || 60000;
 
   if (!options.siteURL) {
-    throw new Error("@shipengine/next-mdx requires the siteURL option to be set");
+    // We can only generate a sitemap if a siteURL is provided
+    options.sitemap = false;
+    options.siteURL = "http://localhost:3000";
   }
 
   return {
