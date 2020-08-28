@@ -44,9 +44,24 @@ npm install @shipengine/next-mdx
 Then use it in your `next.config.js` file:
 
 ```javascript
-const withMDX = require("@shipengine/next-mdx");
+const nextMDX = require("@shipengine/next-mdx");
+
+const withMDX = nextMDX({
+  // Next-MDX options go here
+  siteURL: "http://example.com"
+});
 
 module.exports = withMDX({
+  // Next.js options go here
   pageExtensions: ["tsx", "mdx"],
 });
 ```
+
+
+
+Options
+--------------------------------
+See [`options.ts`](src/options.ts) for all of the options that you can pass to Next-MDX.
+
+> **NOTE:** Don't confuse the Next-MDX options with the Next.js options.
+> Refer to the code example above to see where each goes.
