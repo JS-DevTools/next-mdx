@@ -28,18 +28,18 @@ describe("Layout", () => {
         return <div {...props}/>
       };
 
-      const layoutProps = {
-        title,
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        title="The Page Title"
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
 
         </MDXLayout>;
       }
@@ -71,18 +71,18 @@ describe("Layout", () => {
         return <div {...props}/>
       };
 
-      const layoutProps = {
-        title,
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        title="The Page Title"
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
 
         </MDXLayout>;
       }
@@ -116,18 +116,18 @@ describe("Layout", () => {
         return <div {...props}/>
       };
 
-      const layoutProps = {
-        title,
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        title="The Page Title"
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
 
         </MDXLayout>;
       }

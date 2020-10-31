@@ -38,22 +38,25 @@ describe("Frontmatter", () => {
         return <div {...props}/>
       };
 
-      const layoutProps = {
-        title,
-        description,
-        tags,
-        foo,
-        random,
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        title="The Page Title"
+        description="This is the description of my page"
+        tags={[
+          "a search term",
+          "another search term"
+        ]}
+        foo="bar"
+        random={true}
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
 
         </MDXLayout>;
       }
@@ -82,17 +85,17 @@ describe("Frontmatter", () => {
         return <div {...props}/>
       };
 
-      const layoutProps = {
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
 
         </MDXLayout>;
       }
@@ -117,17 +120,17 @@ describe("Frontmatter", () => {
         return <div {...props}/>
       };
 
-      const layoutProps = {
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
 
         </MDXLayout>;
       }

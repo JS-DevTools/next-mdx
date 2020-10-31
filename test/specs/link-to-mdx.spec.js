@@ -47,17 +47,17 @@ describe("Linking to MDX files", () => {
         return <div {...props}/>
       };
 
-      const layoutProps = {
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
           <h1 {...{
             "markdown": true
           }}><a {...{
@@ -215,17 +215,17 @@ describe("Linking to MDX files", () => {
       };
       const Link = makeShortcode("Link");
       const CustomElement = makeShortcode("CustomElement");
-      const layoutProps = {
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
           <h1 {...{
             "markdown": true
           }}><Link page="/docs/reference#heading" target="_blank" mdxType="Link">{\`Link to Self\`}</Link></h1>

@@ -21,12 +21,20 @@ export function frontmatterToMDX(this: Processor, options: NormalizedOptions): T
     const insertionPoint = findInsertionPoint(root);
     const layoutPath = getLayoutPath(frontmatter, file, options);
 
+    // Serialize the props as React attributes
+    const props = toReactElementAttributes({
+      ...frontmatter,
+      createdAt: stat.birthtime,
+      modifiedAt: stat.mtime
+    });
+
     root.children.splice(insertionPoint, 0,
       {
         type: "import",
         value: `import Layout from ${JSON.stringify(layoutPath)};\n`,
       },
       ...Object.entries(frontmatter).map(([key, value]) => (
+
         {
           type: "export",
           value: `export const ${key} = ${JSON.stringify(value)};\n`,
@@ -43,7 +51,7 @@ export function frontmatterToMDX(this: Processor, options: NormalizedOptions): T
       {
         type: "export",
         default: true,
-        value: `export default (props) => <Layout {...props}/>\n`,
+        value: `export default (props) => <Layout${props}\n  {...props}\n/>\n`,
       },
     );
 
@@ -94,4 +102,31 @@ function getLayoutPath(frontmatter: Frontmatter, file: VFile, options: Normalize
 
   // "import" statements should use POSIX separators
   return toPosixPath(layoutPath);
+}
+
+/**
+ * Serializes the given frontmatter as React element attributes
+ */
+function toReactElementAttributes(obj: Frontmatter): string {
+  let props = "";
+
+  // eslint-disable-next-line prefer-const
+  for (let [key, value] of Object.entries(obj)) {
+    if (typeof value === "string") {
+      value = JSON.stringify(value);
+    }
+    else if (value instanceof Date) {
+      value = `{new Date(${value.getTime()})}`;
+    }
+    else if (Array.isArray(value)) {
+      value = `{[\n    ${value.map(item => JSON.stringify(item)).join(",\n    ")}\n  ]}`;
+    }
+    else {
+      value = `{${JSON.stringify(value)}}`;
+    }
+
+    props += `\n  ${key}=${value as string}`;
+  }
+
+  return props;
 }

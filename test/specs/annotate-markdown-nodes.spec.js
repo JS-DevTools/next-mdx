@@ -31,17 +31,17 @@ describe("Annotating Markdown Nodes", () => {
         return <div {...props}/>
       };
 
-      const layoutProps = {
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
           <h1 {...{
             "markdown": true
           }}>{\`Lorem Ipsum\`}</h1>
@@ -120,17 +120,17 @@ describe("Annotating Markdown Nodes", () => {
         return <div {...props}/>
       };
 
-      const layoutProps = {
-        createdAt,
-        modifiedAt
-      };
-      const MDXLayout = (props) => <Layout {...props}/>
+      const MDXLayout = (props) => <Layout
+        createdAt={new Date(946684800000)}
+        modifiedAt={new Date(949449600000)}
+        {...props}
+      />
 
       export default function MDXContent({
         components,
         ...props
       }) {
-        return <MDXLayout {...layoutProps} {...props} components={components} mdxType="MDXLayout">
+        return <MDXLayout {...props} components={components} mdxType="MDXLayout">
           <h1 {...{
             "markdown": true
           }}>{\`Lorem Ipsum\`}</h1>
