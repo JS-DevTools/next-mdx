@@ -1,6 +1,6 @@
 {
   "name": "@jsdevtools/next-mdx",
-  "version": "1.1.1",
+  "version": "0.0.1",
   "description": "Adds support for MDX with advanced syntax features in Next.js applications",
   "keywords": [
     "nextjs",
@@ -46,8 +46,8 @@
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.6.1",
     "@types/vfile": "^4.0.0",
-    "@typescript-eslint/eslint-plugin": "^3.10.1",
-    "@typescript-eslint/parser": "^3.10.1",
+    "@typescript-eslint/eslint-plugin": "^4.6.0",
+    "@typescript-eslint/parser": "^4.6.0",
     "chai": "^4.2.0",
     "eslint": "^7.5.0",
     "mocha": "^8.1.2",
@@ -59,11 +59,11 @@
     "untag": "^1.0.1"
   },
   "dependencies": {
-    "@mdx-js/loader": "^2.0.0-next.7",
-    "@next/mdx": "^9.5.2",
+    "@mdx-js/loader": "^2.0.0-next.8",
+    "@next/mdx": "^10.0.0",
     "globby": "^11.0.1",
     "gray-matter": "^4.0.2",
-    "remark-frontmatter": "2.0.0",
+    "remark-frontmatter": "^2.0.0",
     "utimes": "^4.0.0",
     "yaml": "^1.10.0"
   }
