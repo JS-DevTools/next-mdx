@@ -1,5 +1,5 @@
 {
-  "name": "@shipengine/next-mdx",
+  "name": "@jsdevtools/next-mdx",
   "version": "1.1.1",
   "description": "Adds support for MDX with advanced syntax features in Next.js applications",
   "keywords": [
@@ -11,14 +11,14 @@
     "documentation"
   ],
   "author": {
-    "name": "ShipEngine",
-    "email": "support@shipengine.com",
-    "url": "https://www.shipengine.com"
+    "name": "James Messinger",
+    "url": "https://jamesmessinger.com"
   },
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "homepage": "https://jstools.dev/next-mdx",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ShipEngine/next-mdx.git"
+    "url": "https://github.com/JS-DevTools/next-mdx.git"
   },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
