@@ -1,6 +1,6 @@
 {
   "name": "@jsdevtools/next-mdx",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Adds support for MDX with advanced syntax features in Next.js applications",
   "keywords": [
     "nextjs",
